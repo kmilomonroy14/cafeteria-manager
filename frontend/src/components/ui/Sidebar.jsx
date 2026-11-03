@@ -1,12 +1,14 @@
+import { NavLink } from 'react-router'
+
 const menuItems = [
-  { label: 'Dashboard', icon: 'dashboard' },
-  { label: 'Ventas', icon: 'sales' },
-  { label: 'Productos', icon: 'products' },
-  { label: 'Inventario', icon: 'inventory' },
-  { label: 'Compras', icon: 'purchases' },
-  { label: 'Gastos', icon: 'expenses' },
-  { label: 'Reportes', icon: 'reports' },
-  { label: 'Configuración', icon: 'settings' },
+  { label: 'Dashboard', icon: 'dashboard', to: '/' },
+  { label: 'Ventas', icon: 'sales', to: '/ventas' },
+  { label: 'Productos', icon: 'products', to: '/productos' },
+  { label: 'Inventario', icon: 'inventory', to: '/inventario' },
+  { label: 'Compras', icon: 'purchases', to: '/compras' },
+  { label: 'Gastos', icon: 'expenses', to: '/gastos' },
+  { label: 'Reportes', icon: 'reports', to: '/reportes' },
+  { label: 'Configuración', icon: 'settings', to: '/configuracion' },
 ]
 
 const iconPaths = {
@@ -68,25 +70,24 @@ function Sidebar({ isOpen, onClose }) {
           <p className="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
             Menú
           </p>
-          {menuItems.map((item, index) => {
-            const isActive = index === 0
-
-            return (
-              <button
-                key={item.label}
-                type="button"
-                onClick={onClose}
-                className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors ${
+          {menuItems.map((item) => (
+            <NavLink
+              key={item.label}
+              to={item.to}
+              end={item.to === '/'}
+              onClick={onClose}
+              className={({ isActive }) =>
+                `flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors ${
                   isActive
                     ? 'bg-emerald-500/10 text-emerald-400'
                     : 'text-slate-400 hover:bg-slate-800 hover:text-white'
-                }`}
-              >
-                <MenuIcon name={item.icon} />
-                {item.label}
-              </button>
-            )
-          })}
+                }`
+              }
+            >
+              <MenuIcon name={item.icon} />
+              {item.label}
+            </NavLink>
+          ))}
         </nav>
 
         <div className="border-t border-slate-800 p-4">
