@@ -1,21 +1,40 @@
+import { useState } from 'react'
+import Header from '../components/ui/Header.jsx'
+import Sidebar from '../components/ui/Sidebar.jsx'
+import SummaryCard from '../components/ui/SummaryCard.jsx'
+
 function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
-      <section className="rounded-xl bg-white p-8 text-center shadow-lg">
-        <h1 className="mb-3 text-2xl font-bold text-gray-900">
-          Cafetería Manager
-        </h1>
-        <p className="mb-6 text-gray-600">
-          Tailwind CSS está funcionando correctamente
-        </p>
-        <button
-          type="button"
-          className="rounded-lg bg-blue-600 px-5 py-2 font-medium text-white hover:bg-blue-700"
-        >
-          Prueba de estilos
-        </button>
-      </section>
-    </main>
+    <div className="min-h-screen bg-slate-950 text-slate-100">
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
+
+      <div className="lg:pl-72">
+        <Header
+          title="Dashboard"
+          onMenuClick={() => setIsSidebarOpen((open) => !open)}
+        />
+
+        <main className="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold text-white">Resumen</h2>
+            <p className="mt-1 text-sm text-slate-400">
+              Vista general de la cafetería
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            <SummaryCard title="Ventas del día" />
+            <SummaryCard title="Gastos del día" />
+            <SummaryCard title="Productos registrados" />
+          </div>
+        </main>
+      </div>
+    </div>
   )
 }
 
